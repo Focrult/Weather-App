@@ -1,16 +1,21 @@
-const API_URL = 'https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}'
+
 const API_KEY = 'a412b2680d9895a41ef3d8276e079247'
-const submit = document.getElementById("submit");
-let userInput = document.getElementById("search-input");
+const searchInput = document.getElementById('search-input');
 // const Temp = document.getElementById("");
 // const fiveDisplay = docuement.getElementById("");
 // const today = document.getElementById("");
 // var previous = document.getElementById("");
 //retrieve api
 // fetch weather data
-
+function LiveWeather(){
+    const API_URL = "https://api.openweathermap.org/data/2.5/weather?" + searchInput + "&appid=" + API_KEY;
+}
 //hidden five cards?
 
+
+function Display(){ //use code from previous challenge? 
+
+}
 
 // display results
 
