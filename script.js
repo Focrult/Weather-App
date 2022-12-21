@@ -11,18 +11,25 @@ $(".submit").click(function(){
     console.log("passing search");
     console.log(text);
     $("#placeholder-name").text(text);
-    return text;
-    
 });
 $(".reset").click(function(){
     localStorage.clear();
 });
+$(".search-input").val(localStorage.getItem("search"));
+function LiveWeather(){
+    text = $(".search-input").val();
+    const API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" + text + "&appid=" + API_KEY;
+    console.log(API_URL);
+    return API_URL;
+}
 
+//obtain the data
 
+//single out specific data
 
+//store the data into local storage
 
-
-
+//display data onto cards
 
 
 // fetch('requestUrl')
@@ -36,16 +43,6 @@ $(".reset").click(function(){
 //         console.log
 //     }
 // }
-
-
-$(".search-input").val(localStorage.getItem("search"));
-
-function LiveWeather(){
-    text = $(".search-input").val();
-    const API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" + text + "&appid=" + API_KEY;
-    console.log(API_URL);
-    return API_URL;
-}
 //hidden five cards?
 
 
