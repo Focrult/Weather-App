@@ -2,8 +2,11 @@
 const API_KEY = 'a412b2680d9895a41ef3d8276e079247'
 let searchInput = document.getElementsByClassName('.search-input');
 const newsearchInput = JSON.stringify(searchInput);
-
-let units = 'metric'; //apparently the default temp is kelvin - must convert to metric
+const CityCurrent = document.getElementById('city-name');
+const currentTemp = document.getElementById("temperature");
+const currentWind = document.getElementById("wind");
+const currentHumidity = document.getElementById("humidity");
+var currentDay = document.getElementById("current-weather");
 $(document).ready(function() {
 $(".submit").click(function(){ 
     LiveWeather(); //activates when user clicks submit button
@@ -21,7 +24,7 @@ function LiveWeather(){
     let API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" + text + "&units=metric&appid=" + API_KEY;
     console.log(API_URL);
    // function APIConvert(){
-    var settings = {
+    var settings = { //for response
         "async": true,
         "crossDomain": true,
         "url": API_URL,
@@ -30,11 +33,18 @@ function LiveWeather(){
    fetch(API_URL) 
    .then(response => response.json())
     $.ajax(settings).done(function (response){
+        currentDay.classList.remove("d-none");
         console.log(response);
-        console.log("Temp: " + response.main.temp);
-        console.log("Wind: " + response.wind.speed);
-        console.log("Humidity: " + response.main.humidity);
+        
+        CityCurrent.innerHTML = "City: " + (response.name);
+        currentTemp.innerHTML = "Temp: " + (response.main.temp) + "°C";
+        currentWind.innerHTML = "Wind Speed: " + (response.wind.speed) + "mph";
+        currentHumidity.innerHTML = "Humidity: " + (response.main.humidity) + "%";
+        console.log("Temp: " + response.main.temp + "°C");
+        console.log("Wind: " + response.wind.speed + "mph");
+        console.log("Humidity: " + response.main.humidity + "%");
     });
+ 
    }//END OF FUNCTION LIVEWEATHER
 
 
