@@ -6,6 +6,7 @@ const CityCurrent = document.getElementById('city-name');
 const currentTemp = document.getElementById("temperature");
 const currentWind = document.getElementById("wind");
 const currentHumidity = document.getElementById("humidity");
+const fiveHeader = document.getElementById("fivedays");
 var currentDay = document.getElementById("current-weather");
 $(document).ready(function() {
 $(".submit").click(function(){ 
@@ -13,10 +14,12 @@ $(".submit").click(function(){
     const text = document.querySelector(".search-input").value;
     localStorage.setItem("search", $(".search-input").val());
     console.log(text);
+     //Displays the day, the month, and the year
     // $("#placeholder-name").text(text);
 });
 $(".reset").click(function(){ //reset search input
     localStorage.clear();
+    document.location.reload();
 });
 $(".search-input").val(localStorage.getItem("search"));
 function LiveWeather(){
@@ -35,17 +38,48 @@ function LiveWeather(){
     $.ajax(settings).done(function (response){
         currentDay.classList.remove("d-none");
         console.log(response);
-        
-        CityCurrent.innerHTML = "City: " + (response.name);
+        const DMY = dayjs().format("D/MM/YY");
+        CityCurrent.innerHTML = (response.name) +" " +"("+ DMY+")"; //need to add date!
         currentTemp.innerHTML = "Temp: " + (response.main.temp) + "°C";
         currentWind.innerHTML = "Wind Speed: " + (response.wind.speed) + "mph";
         currentHumidity.innerHTML = "Humidity: " + (response.main.humidity) + "%";
         console.log("Temp: " + response.main.temp + "°C");
         console.log("Wind: " + response.wind.speed + "mph");
         console.log("Humidity: " + response.main.humidity + "%");
+
+        ///////five days forecast
+        let ID = (response.main.id);
+        let API_URL_5 = "https://api.openweathermap.org/data/2.5/forecast?id=" + ID + "&appid=" + API_KEY;
+        //if else - clear icon, cloudy icon, stormy icon!
+        var settings2 = { //for response
+            "async": true,
+            "crossDomain": true,
+            "url": API_URL_5,
+            "method": "GET"
+        }
+        fetch(API_URL_5)
+        .then(response => response.json())
+        $.ajax(settings2).done(function(response){
+            fiveHeader.classList.remove("d-none");
+            
+        })
+
+
+
     });
- 
+
+        //five days forecast
+
+
+
    }//END OF FUNCTION LIVEWEATHER
+
+
+
+    //instead of city try id
+
+
+
 
 
 })//END OF DOCUMENT
