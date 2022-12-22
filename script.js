@@ -30,40 +30,18 @@ function LiveWeather(){
     }
    fetch(API_URL)
    .then(response => response.json())
-   .then(data => {
-    // const info = {
-    //     name:
-    //     temp: 
-    //     wind: 
-    //     humidity: 
-    // }
     $.ajax(settings).done(function (response){
         console.log(response);
         console.log("Temp: " + response.main.temp);
         console.log("Wind: " + response.wind.speed);
         console.log("Humidity: " + response.main.humidity);
-    })});
-   }
-
-// .then(function (data){
-//     for(let i = 0; i < data.length; i++){
-//     console.log(data[i]);
-//     localStorage.setItem("data", JSON.stringify(data[i]));
-// }
-// const Viewdata = JSON.parse(localStorage.getItem("data"));
-// console.log(Viewdata);
-// });
-})
+    });
+   }//END OF FUNCTION LIVEWEATHER
 
 
-//default temp is kelvin
+})//END OF DOCUMENT
 
-
-
-//different url for 
-
-
-
+//another section for five day forecast?
 
 
 
