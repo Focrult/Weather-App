@@ -15,7 +15,6 @@ $(".submit").click(function(){
     localStorage.setItem("search", $(".search-input").val());
     console.log(text);
      //Displays the day, the month, and the year
-    // $("#placeholder-name").text(text);
 });
 $(".reset").click(function(){ //reset search input
     localStorage.clear();
@@ -24,9 +23,9 @@ $(".reset").click(function(){ //reset search input
 $(".search-input").val(localStorage.getItem("search"));
 function LiveWeather(){
     text = $(".search-input").val();
-    let API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" + text + "&units=metric&appid=" + API_KEY;
+    let API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" + text + "&units=imperial&appid=" + API_KEY;
     console.log(API_URL);
-   // function APIConvert(){
+ 
     var settings = { //for response
         "async": true,
         "crossDomain": true,
@@ -40,17 +39,13 @@ function LiveWeather(){
         console.log(response);
         const DMY = dayjs().format("D/MM/YY");
         CityCurrent.innerHTML = (response.name) +" " +"("+ DMY+")"; //need to add date!
-        currentTemp.innerHTML = "Temp: " + (response.main.temp) + "°C";
-        currentWind.innerHTML = "Wind Speed: " + (response.wind.speed) + "mph";
-        currentHumidity.innerHTML = "Humidity: " + (response.main.humidity) + "%";
-        console.log("Temp: " + response.main.temp + "°C");
-        console.log("Wind: " + response.wind.speed + "mph");
-        console.log("Humidity: " + response.main.humidity + "%");
-
+        currentTemp.innerHTML = "Temp: " + (response.main.temp) + " °F";
+        currentWind.innerHTML = "Wind Speed: " + (response.wind.speed) + " MPH";
+        currentHumidity.innerHTML = "Humidity: " + (response.main.humidity) + " %";
+        
         ///////five days forecast
-        let ID = (response.main.id);
-        let API_URL_5 = "https://api.openweathermap.org/data/2.5/forecast?id=" + ID + "&appid=" + API_KEY;
-        //if else - clear icon, cloudy icon, stormy icon!
+        let ID = (response.id);
+        let API_URL_5 = "https://api.openweathermap.org/data/2.5/forecast?id=" + ID + "&units=imperial&appid=" + API_KEY;
         var settings2 = { //for response
             "async": true,
             "crossDomain": true,
@@ -61,7 +56,26 @@ function LiveWeather(){
         .then(response => response.json())
         $.ajax(settings2).done(function(response){
             fiveHeader.classList.remove("d-none");
+            console.log(response);
+            let five = $(".forecast");
+            for(i = 0; i < five.length; i++) {//should only fill the five divs!
+            console.log(i);
+           
+                ///////CHANGE BELOW!!!!
+                // every three hours the weather array records data!
+                // we can ignore the first 4 elements use math equation?
+                // target 36, 28, 20, 12, 4 <- include these in the array for the five day forecast. Exclude 0-3
+                //         4, 3, 2, 1, 0
+                const index = [0, 1, 2, 3, 4];
+            const res1 = response.list[4];
+            const res2 = response.list[12];
+            const res3 = response.list[20];
+            const res4 = response.list[28];
+            const res5 = response.list[36];
+            console.log(res1);
+            const array_S = ((i * (8)) + 4); //this should target the objects we want!
             
+            }
         })
 
 
