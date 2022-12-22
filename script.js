@@ -9,9 +9,8 @@ $(".submit").click(function(){
     LiveWeather(); //activates when user clicks submit button
     const text = document.querySelector(".search-input").value;
     localStorage.setItem("search", $(".search-input").val());
-    console.log("passing search");
     console.log(text);
-    $("#placeholder-name").text(text);
+    // $("#placeholder-name").text(text);
 });
 $(".reset").click(function(){ //reset search input
     localStorage.clear();
@@ -19,7 +18,7 @@ $(".reset").click(function(){ //reset search input
 $(".search-input").val(localStorage.getItem("search"));
 function LiveWeather(){
     text = $(".search-input").val();
-    let API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" + text + "&appid=" + API_KEY;
+    let API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" + text + "&units=metric&appid=" + API_KEY;
     console.log(API_URL);
    // function APIConvert(){
     var settings = {
@@ -28,7 +27,7 @@ function LiveWeather(){
         "url": API_URL,
         "method": "GET"
     }
-   fetch(API_URL)
+   fetch(API_URL) 
    .then(response => response.json())
     $.ajax(settings).done(function (response){
         console.log(response);
