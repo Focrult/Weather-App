@@ -71,7 +71,7 @@ function LiveWeather(){
             const res4 = response.list[28];
             const res5 = response.list[36];
             console.log(res1);
-            const array_S = ((i * (8)) + 4); //this should target the objects we want!
+            const array_S = ((i * (8)) + 4); //this should target the objects we want! 
             let arrayDate = response.list[array_S].dt_txt.slice(0,10);
             console.log(arrayDate);
             const dates = document.createElement("h5");
@@ -81,6 +81,7 @@ function LiveWeather(){
             const icon = document.createElement("img"); //icon
             icon.setAttribute("src", "https://openweathermap.org/img/wn/" + response.list[array_S].weather[0].icon + "@2x.png"); //review https://openweathermap.org/weather-conditions + http://openweathermap.org/img/wn/10d@2x.png
             five[i].append(icon);
+            
             ////////////////////////////////
             const forecastTempEl = document.createElement("h6");
             forecastTempEl.innerHTML = "Temp: " + (response.list[array_S].main.temp) + " °F"; //use response from previous. add in Array_S formula to select only what we want!!!
@@ -93,11 +94,27 @@ function LiveWeather(){
             const forecastHumidityEl = document.createElement("h6");
             forecastHumidityEl.innerHTML = "Humidity: " + response.list[array_S].main.humidity + " %";
             five[i].append(forecastHumidityEl);
-            }
+            }   
         })
+        // var cityName = {
+        //     name:  $(".search-input").val(localStorage.getItem("search")),
+        // }
+        // $.ajax({
+        //     type: 'POST',
+        //     url: ,
+        //     data: cityName,
+        //     success: function (name){
+        //     $cityName.append
+        //     }
+           
 
-
-
+    //    })
+        // DISPLAY search
+        //use post?
+        // function displaySearch(){
+        // const previousCity = document.getElementById("preCity");
+        // for(var i = 0; i < )
+        // }
     });
 
    }//END OF FUNCTION LIVEWEATHER
