@@ -77,9 +77,6 @@ function LiveWeather(text){
             const five = $(".forecast");
             for(i = 0; i < five.length; i++) {
             const array_S = i * 8 + 4; //this should target the objects we want! 
-            console.log(API_URL_5)
-            //const arrayDate = new Date(response.list[array_S].dt * 1000);
-            console.log(array_S)
             const arrayDate = response.list[array_S].dt_txt.slice(0,10);
             
             const dates = document.createElement("h5");
