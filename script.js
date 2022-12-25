@@ -1,30 +1,49 @@
 
-const API_KEY = 'a412b2680d9895a41ef3d8276e079247'
-let searchInput = document.getElementsByClassName('.search-input');
-const newsearchInput = JSON.stringify(searchInput);
-const CityCurrent = document.getElementById('city-name');
-const currentTemp = document.getElementById("temperature");
-const currentWind = document.getElementById("wind");
-const currentHumidity = document.getElementById("humidity");
-const fiveHeader = document.getElementById("fivedays");
-var currentDay = document.getElementById("current-weather");
 $(document).ready(function() {
+    const API_KEY = 'a412b2680d9895a41ef3d8276e079247'
+    let searchInput = document.getElementsByClassName('.search-input');
+    const newsearchInput = JSON.stringify(searchInput);
+    const CityCurrent = document.getElementById('city-name');
+    const currentTemp = document.getElementById("temperature");
+    const currentWind = document.getElementById("wind");
+    const currentHumidity = document.getElementById("humidity");
+    const fiveHeader = document.getElementById("fivedays");
+    var currentDay = document.getElementById("current-weather");
+    let preCity = document.getElementById("preCity");
+    const old_data = JSON.parse(localStorage.getItem("search")) || [];
+
+    CityHis();
+    if (old_data.length > 0) {
+    console.log("pass")
+    LiveWeather(old_data[old_data.length - 1]);
+    }
+
 $(".submit").click(function(){ 
-    LiveWeather(); //activates when user clicks submit button
-    const text = document.querySelector(".search-input").value;
-    localStorage.setItem("search", $(".search-input").val());
-    console.log(text);
-     //Displays the day, the month, and the year
+    var text = document.querySelector(".search-input").value;
+    if(localStorage.getItem("search") == null){
+        localStorage.setItem("search", '[]');
+    }
+    if(localStorage.getItem("search") != null){
+       location.reload();
+    }
+    var old_data = JSON.parse(localStorage.getItem("search"));
+    old_data.push(text);
+    localStorage.setItem("search", JSON.stringify(old_data));
+  //  localStorage.setItem("search", $(".search-input").val()); 
+    LiveWeather(text); 
+    CityHis();
+    
 });
 $(".reset").click(function(){ //reset search input
     localStorage.clear();
     document.location.reload();
 });
-$(".search-input").val(localStorage.getItem("search"));
-function LiveWeather(){
-    text = $(".search-input").val();
+//$(".search-input").val(localStorage.getItem("search"));
+function LiveWeather(text){
+
+  //  text = $(".search-input").val();
+    console.log(text);
     let API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" + text + "&units=imperial&appid=" + API_KEY; //had &units=metric, however, I want this to match the gitlab img
-    console.log(API_URL);
  
     var settings = { //for response
         "async": true,
@@ -36,7 +55,6 @@ function LiveWeather(){
    .then(response => response.json())
     $.ajax(settings).done(function (response){
         currentDay.classList.remove("d-none");
-        console.log(response);
         const DMY = dayjs().format("D/MM/YY");
         CityCurrent.innerHTML = (response.name) +" " +"("+ DMY+")"; //need to add date!
         currentTemp.innerHTML = "Temp: " + (response.main.temp) + " °F";
@@ -56,32 +74,22 @@ function LiveWeather(){
         .then(response => response.json())
         $.ajax(settings2).done(function(response){
             fiveHeader.classList.remove("d-none");
-            console.log(response);
-            let five = $(".forecast");
-            for(i = 0; i < five.length; i++) {//should only fill the five divs!
-            console.log(i);
-                // every three hours the weather array records data!
-                // we can ignore the first 4 elements use math equation?
-                // target 36, 28, 20, 12, 4 <- include these in the array for the five day forecast. Exclude 0-3
-                //         4, 3, 2, 1, 0
-            const index = [0, 1, 2, 3, 4];
-            const res1 = response.list[4];
-            const res2 = response.list[12];
-            const res3 = response.list[20];
-            const res4 = response.list[28];
-            const res5 = response.list[36];
-            console.log(res1);
-            const array_S = ((i * (8)) + 4); //this should target the objects we want! 
-            let arrayDate = response.list[array_S].dt_txt.slice(0,10);
-            console.log(arrayDate);
+            const five = $(".forecast");
+            for(i = 0; i < five.length; i++) {
+            const array_S = i * 8 + 4; //this should target the objects we want! 
+            console.log(API_URL_5)
+            //const arrayDate = new Date(response.list[array_S].dt * 1000);
+            console.log(array_S)
+            const arrayDate = response.list[array_S].dt_txt.slice(0,10);
+            
             const dates = document.createElement("h5");
             dates.setAttribute("class", "mt-3 mb-2 forecast");
             dates.innerHTML = arrayDate;
             five[i].append(dates);
+
             const icon = document.createElement("img"); //icon
             icon.setAttribute("src", "https://openweathermap.org/img/wn/" + response.list[array_S].weather[0].icon + "@2x.png"); //review https://openweathermap.org/weather-conditions + http://openweathermap.org/img/wn/10d@2x.png
             five[i].append(icon);
-            
             ////////////////////////////////
             const forecastTempEl = document.createElement("h6");
             forecastTempEl.innerHTML = "Temp: " + (response.list[array_S].main.temp) + " °F"; //use response from previous. add in Array_S formula to select only what we want!!!
@@ -94,35 +102,37 @@ function LiveWeather(){
             const forecastHumidityEl = document.createElement("h6");
             forecastHumidityEl.innerHTML = "Humidity: " + response.list[array_S].main.humidity + " %";
             five[i].append(forecastHumidityEl);
-            }   
-        })
-        // var cityName = {
-        //     name:  $(".search-input").val(localStorage.getItem("search")),
-        // }
-        // $.ajax({
-        //     type: 'POST',
-        //     url: ,
-        //     data: cityName,
-        //     success: function (name){
-        //     $cityName.append
-        //     }
-           
+            }   //end of for loop
+              });
+              
+});//End of ajax
 
-    //    })
-        // DISPLAY search
-        //use post?
-        // function displaySearch(){
-        // const previousCity = document.getElementById("preCity");
-        // for(var i = 0; i < )
-        // }
-    });
+}//END OF FUNCTION LIVEWEATHER
 
-   }//END OF FUNCTION LIVEWEATHER
+  function CityHis(){
+    const old_data = JSON.parse(localStorage.getItem("search")) || []; //parse the data
+    preCity.innerHTML = "";
+    if(localStorage.getItem("search") == null){
+        localStorage.setItem("search", '[]');
+     }
+    for (let i = 0; i < old_data.length; i++) { //present previous cities
+        const CityOld = document.createElement("input");
+        CityOld.setAttribute("type", "text");
+        CityOld.setAttribute("readonly", true);
+        CityOld.setAttribute("class", "form-control d-block bg-blue");
+        CityOld.setAttribute("value", old_data[i]);
+        CityOld.addEventListener("click", function () {
+        LiveWeather(CityOld.value);
+        console.log(CityOld.value);
+        })    
+        preCity.append(CityOld)
+    }
+}
 
 
+})
 
-
-})//END OF DOCUMENT
+//END OF DOCUMENT
 
 
 

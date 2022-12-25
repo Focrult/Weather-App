@@ -28,23 +28,46 @@
     <!--Use bootstrap-->
     <header class="header text-center text-white bg-dark p-2"><h1>Weather App</h1></header>
     <!-- create card for search-->
-    <div class="card">
-    <h1 class="search-header">Search for a City:</h1><h1 id="placeholder-name"></h1>
+    <div class="container-fuid">
+        <div class="row">
+            <div>
+            <h2 class="search-header">Search for a City:</h2><h2 id="placeholder-name"></h2>
+            <div class="search">
+            <input type="text" onfocus="this.value=''" placeholder="Enter your city" class="search-input"></input>
+            <div>
+        
+        <button class="submit btn-primary">Search</button>
+        <button class="reset btn-primary">Reset</button>
+        </div>
+        </div>
+        <form id="preCity"></form>
+        </div>
+    
+
+
+   <!-- <div class="container-fuid">
+    <div class="row">
+        <div>
+        <div>
+            <div>
+    <h2 class="search-header">Search for a City:</h2><h2 id="placeholder-name"></h2>
     <div class="search">
-    <input type="text" onfocus="this.value=''" placeholder="Enter your city" class="search-input"></input>
-    <button class="submit">Search</button>
-    <button class="reset">Reset</button>
+    <input type="text" onfocus="this.value=''" value="clear input" placeholder="Enter your city" class="search-input"></input>
+    <button class="submit btn-primary">Search</button>
     </div>
     </div>
-    <ul id="preCity"></ul>
+    <button class="reset btn-primary">Reset</button>
+    <form id="preCity"></form>
+    </div>-->
+
     <!--Display for today card-->
-    <div class="today-card"></div><!--empty and fill in with js - review previous lesson-->
+  
     <div class="col-lg-9">
         <div class="row mr-0">
             <div class="col-lg-11 card m-3 d-none" id="current-weather">
                 <div class="card-body" >
                     <strong><h3 id="city-name" class="city-name align-middle"></h3></strong>
-                    <img id="icon" alt=""><!--remove alt?-->
+                    <img id="icon">
                     <strong><p id="temperature"></p></strong>
                     <strong><p id="wind"></p></strong>
                     <strong><p id="humidity"></p></strong>
@@ -67,6 +90,7 @@
     </div>
     </div>
     </div>
+</div>
     <script src="script.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
