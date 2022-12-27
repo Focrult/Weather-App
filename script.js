@@ -77,8 +77,8 @@ function LiveWeather(text){
             const five = document.querySelectorAll(".forecast");
             for(i = 0; i < five.length; i++) {
                 five[i].innerHTML = "";
-                const array_S = (i * 8) + 4; //this should target the objects we want! 
-                const arrayDate = response.list[array_S].dt_txt.slice(0,10);
+                const array_S = ((i * 8) + 4); //this should target the objects we want! 
+                const arrayDate = response.list[array_S].dt_txt.slice(0,10); //remove excess information
                 const dates = document.createElement("h5");
             console.log(API_URL_5);
             console.log(five[i])
