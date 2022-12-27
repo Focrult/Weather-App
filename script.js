@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
     const API_KEY = 'a412b2680d9895a41ef3d8276e079247'
     const input = document.getElementById("search-input");
@@ -14,7 +13,7 @@ $(document).ready(function() {
         CityHis();
         if (old_data.length > 0) {
         LiveWeather(old_data[old_data.length - 1]);
-        }
+}
 
 $(".submit").click(function(){ 
     const text = input.value;;
@@ -93,7 +92,7 @@ function LiveWeather(text){
             five[i].append(forecastHumidity);
         } //end of loop
     });             
-});//End of ajax1 & 2
+});
 }//END OF FUNCTION LIVEWEATHER
   function CityHis(){
     preCity.innerHTML = "";
