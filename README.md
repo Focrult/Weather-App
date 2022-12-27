@@ -18,7 +18,7 @@ N/A
 The usage for this project is to enable users to add and record a city that they wish to travel to. Providing an accurate outlook for any city of the users choice, so that they can plan a trip according to the weather.
 
 # Screeshots + Link
-Link to the deployed application: 
+Link to the deployed application: https://focrult.github.io/Weather-Dashboard/
 
 ![weather0](https://user-images.githubusercontent.com/114898970/209643347-0ac80d2f-0d7f-4ecb-a8f6-9157b9a0c41f.png)
 ![weather1](https://user-images.githubusercontent.com/114898970/209643337-9e99a96e-bbf1-4798-a373-1b433a1c3403.png)
