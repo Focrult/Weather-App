@@ -19,22 +19,16 @@ $(document).ready(function() {
     LiveWeather(old_data[old_data.length - 1]);
     }
 $(".submit").click(function(){ 
-    const text = input.value;
-    // LiveWeather(text);
-    // old_data.push(text);
-    // localStorage.setItem("search", JSON.stringify(old_data));
-    // CityHis();
+    const text = input.value;;
     if(localStorage.getItem("search") == null){
         localStorage.setItem("search", '[]');
     }
     if(localStorage.getItem("search") != null){
         location.reload();
      }
-    //var old_data = JSON.parse(localStorage.getItem("search"));
     old_data.push(text);
     localStorage.setItem("search", JSON.stringify(old_data));
     LiveWeather(text); 
-    // CityHis();
 });
 
 $(".reset").click(function(){ //reset search input
@@ -42,10 +36,7 @@ $(".reset").click(function(){ //reset search input
     document.location.reload();
 });
 
-//$(".search-input").val(localStorage.getItem("search"));
 function LiveWeather(text){
-  //  text = JSON.stringify(text);
-    //text = JSON.parse(localStorage.getItem("search", text));
     let API_URL = "https://api.openweathermap.org/data/2.5/weather?q=" + text + "&units=imperial&appid=" + API_KEY ; //had &units=metric, however, I want this to match the gitlab img
      console.log(API_URL);
     var settings = { //for response
@@ -83,7 +74,7 @@ function LiveWeather(text){
             console.log(API_URL_5);
             console.log(five[i])
             console.log(array_S)
-         //attribute //CAUSED THE ISSUE RIGHT HERE
+            //attribute //CAUSED THE ISSUE RIGHT HERE
             console.log(arrayDate);
             dates.innerHTML = arrayDate;
             five[i].append(dates); 
@@ -106,7 +97,7 @@ function LiveWeather(text){
              //end of for loop
     });
                   
-});//End of ajax
+});//End of ajax1 & 2
 
 }//END OF FUNCTION LIVEWEATHER
 
@@ -130,9 +121,7 @@ function LiveWeather(text){
 }
     }
 
-})
-
-//END OF DOCUMENT
+})//END OF DOCUMENT
 
 
 
