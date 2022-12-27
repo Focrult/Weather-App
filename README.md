@@ -1,4 +1,4 @@
-## Weather-App
+## Weather-Dashboard
 # Challenge #6 - Week 6:
 
 # Project Description
