@@ -2,8 +2,6 @@
 $(document).ready(function() {
     const API_KEY = 'a412b2680d9895a41ef3d8276e079247'
     const input = document.getElementById("search-input");
-    let searchInput = document.getElementById('.search-input');
-    const newsearchInput = JSON.stringify(searchInput);
     const CityCurrent = document.getElementById('city-name');
     const currentTemp = document.getElementById("temperature");
     const currentWind = document.getElementById("wind");
@@ -13,19 +11,19 @@ $(document).ready(function() {
     const preCity = document.getElementById("preCity");
     var old_data = JSON.parse(localStorage.getItem("search")) || [];
     
-    CityHis();
-    if (old_data.length > 0) {
-    console.log("pass")
-    LiveWeather(old_data[old_data.length - 1]);
-    }
+        CityHis();
+        if (old_data.length > 0) {
+        LiveWeather(old_data[old_data.length - 1]);
+        }
+
 $(".submit").click(function(){ 
     const text = input.value;;
     if(localStorage.getItem("search") == null){
         localStorage.setItem("search", '[]');
-    }
+}
     if(localStorage.getItem("search") != null){
         location.reload();
-     }
+}
     old_data.push(text);
     localStorage.setItem("search", JSON.stringify(old_data));
     LiveWeather(text); 
@@ -42,10 +40,10 @@ function LiveWeather(text){
     var settings = { //for response
         "url": API_URL,
         "method": "GET"
-    }
+}
    fetch(API_URL) 
    .then(response => response.json())
-    $.ajax(settings).done(function (response){
+    $.ajax(settings).done(function (response){ //current weather 
         currentDay.classList.remove("d-none");
         const DMY = dayjs().format("D/MM/YY");
         CityCurrent.innerHTML = (response.name) +" " +"(" + DMY+ ")"; //need to add date!
@@ -53,13 +51,13 @@ function LiveWeather(text){
         currentWind.innerHTML = "Wind Speed: " + (response.wind.speed) + " MPH";
         currentHumidity.innerHTML = "Humidity: " + (response.main.humidity) + " %";
         
-        ///////five days forecast
+        //five days forecast
         let ID = response.id;
         let API_URL_5 = "https://api.openweathermap.org/data/2.5/forecast?id=" + ID + "&units=imperial&appid=" + API_KEY;
         var settings2 = { //for response
             "url": API_URL_5,
             "method": "GET"
-        }
+}
         fetch(API_URL_5)
         .then(response => response.json())
         $.ajax(settings2).done(function(response){
@@ -69,9 +67,9 @@ function LiveWeather(text){
             for(i = 0; i < five.length; i++) {
                 five[i].innerHTML = "";
                 const array_S = ((i * 8) + 4); //this should target the objects we want! 
-                const arrayDate = response.list[array_S].dt_txt.slice(0,10); //remove excess information
+                const arrayDate = response.list[array_S].dt_txt.slice(0,10); //remove excess information in dt_txt
                 const dates = document.createElement("h5");
-            console.log(API_URL_5);
+            console.log(API_URL_5); //verifying information
             console.log(five[i])
             console.log(array_S)
             //attribute //CAUSED THE ISSUE RIGHT HERE
@@ -93,16 +91,11 @@ function LiveWeather(text){
             const forecastHumidity = document.createElement("h6");
             forecastHumidity.innerHTML = "Humidity: " + response.list[array_S].main.humidity + " %";
             five[i].append(forecastHumidity);
-            } 
-             //end of for loop
-    });
-                  
+        } //end of loop
+    });             
 });//End of ajax1 & 2
-
 }//END OF FUNCTION LIVEWEATHER
-
   function CityHis(){
-  
     preCity.innerHTML = "";
     for (let i = 0; i < old_data.length; i++) { //present previous cities
         const CityOld = document.createElement("input");
@@ -112,15 +105,12 @@ function LiveWeather(text){
         CityOld.setAttribute("value", old_data[i]); 
         ////////////////////////////////////////////////////////////////
         CityOld.addEventListener("click",function(){ //when user clicks on previous city
-            console.log("tesing click searchOld");
             console.log(CityOld.value)
-            LiveWeather(CityOld.value);
-       
-    })
-    preCity.append(CityOld);
-}
+            LiveWeather(CityOld.value);  
+            })
+            preCity.append(CityOld);
+        }
     }
-
 })//END OF DOCUMENT
 
 
