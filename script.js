@@ -15,7 +15,7 @@ $(document).ready(function() {
         LiveWeather(old_data[old_data.length - 1]);
 }
 
-$(".submit").click(function(){ 
+$(".submit").click(function(){ //user clicks on the submit button
     const text = input.value;;
     if(localStorage.getItem("search") == null){
         localStorage.setItem("search", '[]');
